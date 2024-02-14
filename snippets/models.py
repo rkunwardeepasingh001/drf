@@ -16,4 +16,5 @@ class Snippet(models.Model):
     owner = models.ForeignKey('auth.User', related_name='snippets', on_delete=models.CASCADE)
     highlighted = models.TextField()
     class Meta:
-        ordering = ['created']
+        ordering = ['created']       
+        #some chnges
