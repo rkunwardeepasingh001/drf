@@ -13,6 +13,9 @@ class Account(models.Model):
   created=models.DateField(auto_now_add=True)
   account_url=models.URLField(max_length = 200)
 
-
+class HighScore(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    player_name = models.CharField(max_length=10)
+    score = models.IntegerField()
 
   #new changes for testing- 
