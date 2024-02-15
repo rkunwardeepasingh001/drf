@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from .models import Account
+from .models import Account,HighScore
 from rest_framework import mixins,viewsets
 from rest_framework import generics
 from .serializer import CreateUserSerializer
 from rest_framework.response import Response
 from django.contrib.auth.models import User
-
+from rest_framework.decorators import api_view
 # class ModelserializerDetail(mixins.CreateModelMixin,
 #                     mixins.ListModelMixin,
 #                     mixins.RetrieveModelMixin,
@@ -39,7 +39,7 @@ from django.contrib.auth.models import User
 
 
 from rest_framework.views import APIView
-from .serializer import AccountSerializer
+from .serializer import AccountSerializer,HighScoreSerializer
 # class AccountViews(APIView):
 
 #     def get(self, request ,pk=None):
@@ -67,4 +67,14 @@ class AccountViews(viewsets.ModelViewSet):
 #   serializer_class = AccountSerializer(queryset, context={'request': request})
 
 
- 
+# @api_view(['GET'])
+# def high_score(request, pk):
+#     instance = HighScore.objects.get(pk=pk)
+#     serializer = HighScoreSerializer(instance)
+#     return Response(serializer.data)
+
+@api_view(['GET','POST'])
+def high_score(request):
+    queryset = HighScore.objects.order_by('-score')
+    serializer = HighScoreSerializer(queryset, many=True)
+    return Response(serializer.data)

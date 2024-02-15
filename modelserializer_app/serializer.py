@@ -65,7 +65,12 @@ class AccountSerializer(serializers.HyperlinkedModelSerializer):
 
 
 
+class HighScoreSerializer(serializers.BaseSerializer):
+    def to_representation(self, instance):
+        return {
+            'score': instance.score,
+            'player_name': instance.player_name
+        }
 
 
-
-# from rest_framework.generics import ListAPIView
+# from rest_framework.generics import ListAPIView       
